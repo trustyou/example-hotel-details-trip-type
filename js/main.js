@@ -1,4 +1,220 @@
-$(document).ready(function(){
+(function($, Mustache) {
+	"use strict";
+
+	var hotelData = {
+		name: "Bellagio Las Vegas",
+		address: "South Las Vegas Boulevard 3600, NV 89109, Las Vegas, USA",
+		tyId: "674fa44c-1fbd-4275-aa72-a20f262372cd",
+		imgUrl: "img/674fa44c-1fbd-4275-aa72-a20f262372cd.jpg"
+	};
+
+	/*
+	When querying a JSON widget, always ask for the specific version you
+	developed against. This guarantees that no schema-breaking changes will
+	affect your code.
+	*/
+	// TODO remove integration URL
+	var url = "http://api.integration.trustyou.com/hotels/" + hotelData.tyId + "/tops_flops.json?" + $.param({
+		lang: "en",
+		/*
+		This is a demo API key, do not reuse it! Contact TrustYou to
+		receive your own.
+		*/
+		key: "a06294d3-4d58-45c8-97a1-5c905922e03a",
+		v: "5.16",
+		/*
+		Limit the level of detail to what is shown in the default HTML
+		view.
+		*/
+		detail: "normal"
+	});
+	var reviewSummaryRequest = $.ajax({
+		url: url,
+		// Usage of JSONP is not required for server-side calls
+		dataType: "jsonp"
+	}).fail(function() {
+		throw "API request failed!";
+	});
+
+	/**
+	* Render the basic hotel info.
+	*/
+	function renderHotelInfo(hotelData, reviewSummary) {
+		var hotelInfoTemplate = $("#tmpl-hotel-info").html();
+		var templateData = {
+			name: hotelData.name,
+			address: hotelData.address,
+			imgUrl: hotelData.imgUrl,
+			reviewsCount: reviewSummary["reviews_count"],
+			trustScore: reviewSummary["summary"].score,
+			popularity: reviewSummary["summary"].popularity,
+			summary: reviewSummary["summary"].text
+		};
+
+		// transform hotel types to the format expected by the template
+		templateData.hotelTypes = reviewSummary["hotel_type_list"].map(function(hotelType) {
+			return {
+				categoryId: hotelType["category_id"],
+				/*
+				Texts in the "text" property contain markers
+				in the form of <pos>..</pos>, <neg>..</neg> and
+				<neu>..</neu>, which enclose passages in the
+				text that contain sentiment. Either remove
+				these before displaying the text, or replace
+				them with meaningful markup, as is done here.
+				*/
+				text: hotelType["text"].replace("<pos>", "<strong>").replace("</pos>", "</strong>")
+			};
+		});
+
+		var hotelInfoRendered = Mustache.render(hotelInfoTemplate, templateData);
+		$("#hotel-info").append(hotelInfoRendered);
+	}
+
+	/**
+	* Render filtered review summaries.
+	*
+	* The markup is structured like this: Sections to render hotel_type_list, category_list and good_to_know_list are put in separate templates. They are rendered once for the overall review summary, and then repeatedly for each filtered review summary, i.e. for business travelers, families etc. The UI is then made interactive to let the user switch between them.
+	*/
+	function renderReviewSummaries(reviewSummary) {
+
+		// display names for all filter types
+		var filterNames = {
+			business: "Business travelers",
+			couple: "Couples",
+			family: "Families",
+			solo: "Solo travelers"
+		};
+
+		/**
+		* Transform a category object into the format expected by the
+		* template. Since category objects look the same in category_list,
+		* good_to_know_list and hotel_type_list, this function can be
+		* applied to all these properties.
+		*/
+		function transformCategory (category) {
+			return {
+				categoryId: category["category_id"],
+				categoryName: category["category_name"],
+				score: category["score"],
+				sentiment: category["sentiment"],
+				/*
+				Remove the markers in the form of <pos>..</pos>,
+				<neg>..</neg> and <neu>..</neu> with a regular
+				expression.
+				*/
+				text: category["text"].replace(/<\/?(?:pos|neu|neg)>/g, ''),
+				/*
+				Show up to three returned highlights. If no
+				highlights are present, the "short_text" is
+				shown instead, which is guaranteed to be there
+				for all category-language combinations.
+				*/
+				highlights: category["highlight_list"].concat({text: category["short_text"]}).slice(0, 3),
+				/*
+				Recursively transform sub categories (if
+				present), since they have the same format.
+				*/
+				subCategories: category.hasOwnProperty("sub_category_list") ? category["sub_category_list"].map(transformCategory) : []
+			};
+		}
+
+		var filtersData = {
+			/*
+			Transform each of the returned filtered summaries (solo,
+			business, families etc.) into the format expected by the
+			template. Here, we will keep all category lists in the
+			order in which they were returned from the API. This
+			way, our visualization should look like the official
+			TrustYou HTML visualization.
+			*/
+			filters: reviewSummary["filtered_tops_flops_list"].map(function(filteredReviewSummary) {
+				var filterId = filteredReviewSummary["filter"]["trip_type"];
+				return {
+					filterId: filterId,
+					filterName: filterNames[filterId],
+					reviewsPercent: filteredReviewSummary["reviews_percent"],
+					hotelType: filteredReviewSummary["hotel_type_list"].map(transformCategory),
+					categories: filteredReviewSummary["category_list"].map(transformCategory),
+					goodToKnow: filteredReviewSummary["good_to_know_list"].map(transformCategory)
+				};
+			})
+		};
+
+		/*
+		Render the filter bar. The "All" button is hardcoded in the
+		template.
+		*/
+		var filterBarTemplate = $("#tmpl-filter-bar").html();
+		var filterBarRendered = Mustache.render(filterBarTemplate, filtersData);
+		$("#filter-bar").html(filterBarRendered);
+
+		/*
+		Render the "important for X travelers" section, which appears
+		under the filter bar when there is data to show in the
+		hotel_type_list of the selected filtered summary.
+		*/
+		var importantForTemplate = $("#tmpl-important-for").html();
+		var importantForRendered = Mustache.render(importantForTemplate, filtersData);
+		$("#important-for").html(importantForRendered);
+
+		/*
+		For the remaining elements, put the overall review summary in
+		the mix. It has nearly the same format as the filtered summaries.
+		*/
+		filtersData.filters.push({
+			filterId: "all",
+			filterName: "All travelers",
+			reviewsPercent: 100,
+			hotelType: [],
+			categories: reviewSummary["category_list"].map(transformCategory),
+			goodToKnow: reviewSummary["good_to_know_list"].map(transformCategory)
+		});
+
+		/*
+		Render the review summaries, i.e. bar charts of category scores
+		and sub categories.
+		*/
+		var reviewSummariesTemplate = $("#tmpl-review-summaries").html();
+		var reviewSummariesRendered = Mustache.render(reviewSummariesTemplate, filtersData);
+		$("#review-summaries").html(reviewSummariesRendered);
+
+		/*
+		Render the "good to know" sections, which are also specific to
+		the filtered summaries.
+		*/
+		var goodToKnowTemplate = $("#tmpl-good-to-know").html();
+		var goodToKnowRendered = Mustache.render(goodToKnowTemplate, filtersData);
+		$("#good-to-know").html(goodToKnowRendered);
+	}
+
+	/**
+	Process a response from the TrustYou Review Summary API.
+	*/
+	function processReviewSummaryResponse(data) {
+		// check whether the API request was successful
+		if (data.meta.code !== 200) {
+			throw "API request failed!";
+		}
+		var reviewSummary = data.response;
+		renderHotelInfo(hotelData, reviewSummary);
+		renderReviewSummaries(reviewSummary);
+		addHandlers();
+	}
+
+	// when the DOM is ready for rendering, process the API response
+	$(function() {
+		reviewSummaryRequest.done(processReviewSummaryResponse);
+	});
+
+}($, Mustache));
+
+/**
+* After all HTML elements were rendered, this function is called to make the UI
+* interactive. I.e. to allow the user to switch between different filters, and
+* toggle the level of detail.
+*/
+function addHandlers() {
 
 	// check to see if text has been truncated by CSS code
 
@@ -203,8 +419,7 @@ $(document).ready(function(){
 		switchContent ('.good-to-know', '#good-to-know-' + travelerType, 150, function(){
 			thisGoodToKnow.css('opacity', 1).fadeIn(150);
 		});
-	}
+	}});
 	
-});
-
-});
+	$('a[href=all]').click();
+}
