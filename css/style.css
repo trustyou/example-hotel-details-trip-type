@@ -1,0 +1,655 @@
+/* General styles */
+
+body {
+	background: #fff;
+	font: 14px/18px "Roboto", Arial, Helvetica sans-serif;
+}
+
+p {
+	color: #333;
+	font-weight: 300;
+	line-height: 1.6em;
+}
+
+b, strong {
+	font-weight: 500;
+}
+
+h1 {
+	margin: 0;
+	color: #666;
+	text-align: left;
+	font-weight: 300;
+	font-size: 2.2em;
+}
+
+.container {
+	position: relative;
+	margin: 0 auto;
+	padding: 0;
+	width: 1000px;
+}
+
+.pos {
+	color: #119a11;
+}
+
+.neu {
+	color: #f9c015;
+}
+
+.neg {
+	color: #f37159;
+}
+
+/* Vrified reviews */
+
+a.verified-reviews {
+	display: block;
+	float: right;
+	margin: 20px 0 40px;
+}
+
+a.verified-reviews:before,
+a.verified-reviews:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+
+a.verified-reviews:focus {
+	outline: none;
+	border: none;
+}
+
+/* Header */
+
+header {
+	border-bottom: 1px solid #ddd;
+	background: #f5f5f5;
+}
+
+header .container {
+	padding: 50px 0;
+}
+
+header .thumbnail {
+	position: relative;
+	margin-bottom: 0;
+}
+
+header h2{
+	margin: 10px 0 0;
+	font-weight: 300;
+	font-size: 1.0em;
+}
+
+header h2 .ty-icon {
+	float: left;
+	margin: 0 3px 0 0;
+	color: #999;
+}
+
+header h3 {
+	margin: 0 0 15px;
+	font-size: 1.0em;
+	line-height: 1.4em;
+}
+
+/* Stars */
+
+.stars{
+	margin: 0 0 0 5px;
+	color: #ccc;
+	font-size: .7em;
+}
+
+.stars span{
+	margin-right: -3px;
+}
+
+.stars span.active{
+	color: #ffb400;
+}
+
+/* Ranking */
+
+header .ranking {
+	position: absolute;
+	top: 20px;
+	right: 0;
+	padding: 0 20px;
+	background: #119a11;
+	color: #fff;
+	font-size: .9em;
+}	
+
+header .rank-wrapper {
+	display:table-cell;
+	height: 50px; 
+	vertical-align:middle;
+}
+
+header .ranking span {
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 2px 1px rgba(0, 0, 0, .6);
+	font-size: 1.2em;
+	line-height: 1.2em;
+}
+
+/* Hotel type */
+
+header .hotel-type{
+	padding-left: 30px;
+}
+
+header .hotel-type p{
+	margin-bottom: 0;
+	color: #666;
+}
+
+header .hotel-type p .ty-icon {
+	float: left;
+	margin-left: -30px;
+	font-size: 1.6em;
+}
+
+/* TrustScore */
+
+header .trustscore {
+	margin: 15px 0;
+	width: 200px;
+}
+
+/* Summary filters */
+
+.summary-filters {
+	position: relative;
+	margin: 50px 0 0;
+}
+
+.summary-filters:before,
+.summary-filters:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+
+.summary-filters :after,
+.summary-filters:before {
+	display: table;
+	clear: both;
+	content: '';
+}
+
+.summary-filters .tile {
+	position: relative;
+	float: left;
+	width: 20%;
+}
+
+.summary-filters .tile a {
+	-webkit-transition: all 0.1s ease-in;
+	-moz-transition: all 0.1s ease-in;
+	-o-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.summary-filters .tile a {
+	position: relative;
+	display: block;
+	padding: 30px;
+	height: 120px;
+	height: 135px;
+	border: 1px solid #e5e5e5;
+	border-left: none;
+	border-radius: 0;
+	background: #fff;
+	color: #777;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 1.1em;
+	cursor: pointer;
+	-webkit-transition: all 0.1s ease-in;
+	-moz-transition: all 0.1s ease-in;
+	-o-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.summary-filters .tile:first-child > a {
+	border-left: 1px solid #e5e5e5;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+
+.summary-filters .tile:last-child > a{
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.summary-filters .tile a:hover {
+	background: #fafafa;
+	color: #333;
+}
+
+.summary-filters .tile a .value {
+	display: block;
+	font-weight: 300;
+	font-size: .85em;
+}
+
+/* Filters on */
+
+.summary-filters .tile.selected > a,
+.summary-filters .tile.selected > a:hover {
+	position: relative;
+	background: #f9f9f9;
+	color: #689cd4;
+}
+
+.summary-filters.filters-on .tile.selected:after {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 100;
+	margin-top: -1px;
+	width: 100%;
+	height: 1px;
+	background: #f9f9f9;
+	content: '';
+}
+
+.summary-filters.filters-on .tile:first-child > a {
+	border-bottom-left-radius: 0;
+}
+
+.summary-filters.filters-on .tile:last-child > a{
+	border-bottom-right-radius: 0;
+}
+
+/* Trip type icons */
+
+.summary-filters .tile a .ty-icon {
+	display: block;
+	margin-bottom: 10px;
+	color: #999;
+	font-size: 2.4em;
+	-webkit-transition: all 0.1s ease-in;
+	-moz-transition: all 0.1s ease-in;
+	-o-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.summary-filters .tile a:hover .ty-icon {
+	color: #666;
+}
+
+.summary-filters .tile.selected a .ty-icon {
+	color: #689cd4;
+}
+
+/* Links */
+
+.summary-filters .summary-filters  .tile > a:hover {
+	background: transparent;
+	-webkit-transition: all 0.1s ease-in;
+	-moz-transition: all 0.1s ease-in;
+	-o-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.summary-filters .summary-filters  .tile > a .value {
+	display: block;
+	font-weight: 300;
+	font-size: .85em;
+}
+
+/* ---------- Trip type summary --------- */
+
+.summary-content.traveler-type-highlights {
+	position: relative;
+	display: none;
+	overflow: visible;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #e5e5e5;
+	border-top: none;
+	border-top: none;
+	border-radius: 0 0 6px 6px;
+	background: #f9f9f9;
+	-webkit-transition: all 0.1s ease-in;
+	-moz-transition: all 0.1s ease-in;
+	-o-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.summary-content.traveler-type-highlights .type-of-hotel {
+	margin-bottom: 20px;
+	color: #666;
+	font-weight: 500;
+	font-size: 1.1em;
+	line-height: normal;
+}
+
+.summary-content.traveler-type-highlights .summary-section.tops-flops .category .result-chart {
+	width: 80px;
+}
+
+.summary-content.traveler-type-highlights .type-of-hotel .snippet {
+	font-weight: normal;
+	font-size: .9em;
+}
+
+.summary-content.traveler-type-highlights .summary-section {
+	display: none;
+	margin: 0;
+	padding: 20px;
+	border-bottom: none;
+	opacity: 0;
+}
+
+.summary-content.traveler-type-highlights .summary-section.absolute{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+/* Content */
+
+.summary-content {
+	overflow: auto;
+}
+
+.summary-section {
+	margin-bottom: 30px;
+}
+
+.summary-section .toggle-details {
+	display: block;
+	float: right;
+	color: #999;
+	font-size: .9em;
+	cursor: pointer;
+}
+
+.summary-section .toggle-details:hover,
+.summary-section .toggle-details:active {
+	color: #444;
+	text-decoration: none;
+}
+
+.summary-section .toggle-details .ty-icon {
+	display: inline-block;
+	float: left;
+	margin: 2px 5px 0 0;
+	font-size: 1.2em;
+}
+
+.summary-section h2 {
+	margin: 0 0 30px;
+	font-weight: 300;
+	font-size: 1.6em;
+}
+
+/* Type of hotel */
+
+.summary-section.type-of-hotel[class*="type-of-hotel-"] {
+	display: none;
+}
+
+.summary-section.type-of-hotel p {
+	padding-left: 40px;
+	line-height: normal;
+}
+
+.summary-section.type-of-hotel p:last-child {
+	margin-bottom: 0;
+}
+
+.summary-section.type-of-hotel .ty-icon {
+	float: left;
+	margin-top: -3px;
+	margin-left: -40px;
+	color: #666;
+	font-size: 1.6em;
+}
+
+.snippet {
+	color: #999;
+	font-style: italic;
+}
+
+/* Tops & flops */
+
+.summary-section.tops-flops[class*="tops-flops-"] {
+	display: none;
+}
+
+.summary-section.tops-flops .category {
+	margin-bottom: 10px;
+}
+
+.summary-section.tops-flops h2 {
+	margin-top: 50px;
+}
+
+.summary-section.tops-flops .category:last-child {
+	margin-bottom: 0;
+}
+
+.summary-section.tops-flops .category .category-results .result-description p:after,
+.summary-section.tops-flops .category .category-results .result-description:after,
+.summary-section.tops-flops .category:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+
+.summary-section.tops-flops .category .category-label {
+	float: left;
+	width: 125px;
+	word-break: break-all;
+	line-height: 1.0em;
+}
+
+.summary-section.tops-flops .category .category-results {
+	float: left;
+	width: calc(100% - 120px);
+}
+
+.summary-section.tops-flops .category .category-results .category-snippets,
+.summary-section.tops-flops .category .category-results .category-subcategory {
+	position: relative;
+	clear: both;
+	overflow: auto;
+	margin-bottom: 2px;
+}
+
+.summary-section.tops-flops .category .category-results .result-description {
+	float: left;
+	width: calc(100% - 120px);
+}
+
+.summary-section.tops-flops .category .category-results .result-description .toggle-content {
+	position: absolute;
+	top: 1px;
+	right: 0;
+	display: none;
+	padding: 2px;
+	width: 16px;
+	height: 16px;
+	border: 1px solid #e5e5e5;
+	border-radius: 0;
+	background: #fafafa;
+	color: #bbb;
+	font-size: .7em;
+	line-height: 1.2em;
+	cursor: pointer;
+}
+
+.summary-section.tops-flops .category .category-results .result-description.text-truncate-on .toggle-content,
+.summary-section.tops-flops .category .category-results .result-description.text-truncate-off .toggle-content {
+	display: block;
+}
+
+.summary-section.tops-flops .category .category-results .result-description:hover .toggle-content,
+.summary-section.tops-flops .category .category-results .result-description .toggle-content:hover {
+	border-color: #bbb;
+	color: #999;
+}
+
+.summary-section.tops-flops .category .category-results .result-description:active .toggle-content,
+.summary-section.tops-flops .category .category-results .result-description .toggle-content:active {
+	border-color: #999;
+	background: #f5f5f5;
+	color: #777;
+}
+
+.summary-section.tops-flops .category .category-results .result-description p {
+	overflow: hidden;
+	margin: 0;
+	width: 100%;
+	color: #999;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 1.3em;
+}
+
+.summary-section.tops-flops .category .category-results .result-description.text-truncate-off p {
+	overflow: visible;
+	white-space: normal;
+}
+
+.summary-section.tops-flops .category .category-results .result-description p span {
+	margin-right: 5px;
+}
+
+.summary-section.tops-flops .category .result-description.text-truncate-on p,
+.summary-section.tops-flops .category .result-description.text-truncate-off p {
+	cursor: pointer;
+}
+
+/* Result chart */
+
+.summary-section.tops-flops .category .result-chart {
+	float: left;
+	margin-right: 15px;
+	width: 100px;
+	height: 15px;
+	background: #f0f0f0;
+}
+
+.summary-section.tops-flops .category .result-chart .result-value {
+	height: 100%;
+	background: #689cd4;
+	-webkit-transition: all 0.1s ease-in;
+	-moz-transition: all 0.1s ease-in;
+	-o-transition: all 0.1s ease-in;
+	transition: all 0.1s ease-in;
+}
+
+.summary-section.tops-flops .category .result-chart.neg .result-value {
+	background: #ee8e8e;
+}
+
+.summary-section.tops-flops .category .result-chart.neu .result-value {
+	background: #f8d867;
+}
+
+.summary-section.tops-flops .category .result-chart.pos .result-value {
+	background: #9acf89;
+}
+
+/* Snippets */
+
+.summary-section.tops-flops .category .category-results .category-snippets .result-description {	
+	font-style: italic;
+}
+
+/* Subcategories */
+
+.summary-section.tops-flops .category .category-subcategory {
+	opacity: 1;
+}
+
+.summary-section.tops-flops .category .category-subcategory:last-child {
+	margin-bottom: 10px;
+}
+
+.summary-section.tops-flops .category .category-subcategory.hidden {
+	opacity: 0;
+}
+
+.summary-section.tops-flops .category .category-subcategory .result-chart {
+	margin-top: 4px;
+	margin-right: 18px;
+	height: 10px;
+	background: #f9f9f9;
+}
+
+.summary-section.tops-flops .category .category-subcategory .result-chart.neg .result-value {
+	background: #f9cccc;
+}
+
+.summary-section.tops-flops .category .category-subcategory .result-chart.neu .result-value {
+	background: #fdeeb8;
+}
+
+.summary-section.tops-flops .category .category-subcategory .result-chart.pos .result-value {
+	background: #c8ebbd;
+}
+
+.summary-section.tops-flops .category .category-results .category-subcategory p {
+	font-weight: 300;
+}
+
+.summary-section.tops-flops .category .category-results .category-subcategory p strong {
+	color: #333;
+	font-weight: 500;
+}
+
+/* Good to know */
+
+.summary-section.good-to-know {
+	overflow: auto;
+}
+
+.summary-section.good-to-know[class*="good-to-know-"] {
+	display: none;
+}
+
+.summary-section.good-to-know:first-child {
+	display: block;
+}
+
+.summary-section.good-to-know ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.summary-section.good-to-know ul li {
+	display: block;
+	float: left;
+	margin-bottom: 7px;
+	padding-right: 20px;
+	width: 50%;
+}
+
+.summary-section.good-to-know ul .ty-icon {
+	float: left;
+	margin: 2px 10px 0 0;
+}
+
+.summary-section.good-to-know ul .ty-icon-ok {
+	color: #9acf89;
+}
+
+.summary-section.good-to-know ul .ty-icon-remove {
+	color: #ee8e8e;
+}
