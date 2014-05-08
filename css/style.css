@@ -292,23 +292,7 @@ header .trustscore {
 	color: #689cd4;
 }
 
-/* Links */
-
-.summary-filters .summary-filters  .tile > a:hover {
-	background: transparent;
-	-webkit-transition: all 0.1s ease-in;
-	-moz-transition: all 0.1s ease-in;
-	-o-transition: all 0.1s ease-in;
-	transition: all 0.1s ease-in;
-}
-
-.summary-filters .summary-filters  .tile > a .value {
-	display: block;
-	font-weight: 300;
-	font-size: .85em;
-}
-
-/* ---------- Trip type summary --------- */
+/* Trip type summary */
 
 .summary-content.traveler-type-highlights {
 	position: relative;
