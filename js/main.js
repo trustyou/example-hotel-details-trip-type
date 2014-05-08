@@ -103,7 +103,7 @@
 				<neg>..</neg> and <neu>..</neu> with a regular
 				expression.
 				*/
-				text: category["text"].replace(/<\/?(?:pos|neu|neg)>/g, ''),
+				text: (category["text"] || "").replace(/<\/?(?:pos|neu|neg)>/g, ''),
 				/*
 				Show up to three returned highlights. If no
 				highlights are present, the "short_text" is
