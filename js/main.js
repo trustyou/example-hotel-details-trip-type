@@ -93,6 +93,15 @@
 		* applied to all these properties.
 		*/
 		function transformCategory (category) {
+			/*
+			Show up to three returned highlights. If no highlights
+			are present, the "short_text" is shown instead.
+			*/
+			var highlights = category["highlight_list"];
+			if (category["short_text"]) {
+				highlights = highlights.concat({text: category["short_text"]});
+			}
+			highlights = highlights.slice(0, 3);
 			return {
 				categoryId: category["category_id"],
 				categoryName: category["category_name"],
@@ -104,13 +113,7 @@
 				expression.
 				*/
 				text: (category["text"] || "").replace(/<\/?(?:pos|neu|neg)>/g, ''),
-				/*
-				Show up to three returned highlights. If no
-				highlights are present, the "short_text" is
-				shown instead, which is guaranteed to be there
-				for all category-language combinations.
-				*/
-				highlights: category["highlight_list"].concat({text: category["short_text"]}).slice(0, 3),
+				highlights: highlights,
 				/*
 				Recursively transform sub categories (if
 				present), since they have the same format.
