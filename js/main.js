@@ -13,8 +13,7 @@
 	developed against. This guarantees that no schema-breaking changes will
 	affect your code.
 	*/
-	// TODO remove integration URL
-	var url = "http://api.integration.trustyou.com/hotels/" + hotelData.tyId + "/tops_flops.json?" + $.param({
+	var url = "http://api.trustyou.com/hotels/" + hotelData.tyId + "/tops_flops.json?" + $.param({
 		lang: "en",
 		/*
 		This is a demo API key, do not reuse it! Contact TrustYou to
