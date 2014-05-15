@@ -1,5 +1,5 @@
 Hotel details with filters
-==========================
+--------------------------
 
 Example of building a hotel details page using data from the TrustYou API:
 - TrustScore seal with review counter
@@ -12,6 +12,12 @@ In addition to this we have also added a toolbar for filtering the review summar
 - family
 - couple
 - single
+
+
+Live example
+------------
+
+You can try out the live demo of this example [here](http://trustyou.github.io/example-hotel-details-trip-type/).
 
 
 ![alt tag](img/preview.jpg)
