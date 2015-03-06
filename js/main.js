@@ -20,12 +20,7 @@
 		receive your own.
 		*/
 		key: "a06294d3-4d58-45c8-97a1-5c905922e03a",
-		v: "5.16",
-		/*
-		Limit the level of detail to what is shown in the default HTML
-		view.
-		*/
-		detail: "normal"
+		v: "5.23"
 	});
 	var reviewSummaryRequest = $.ajax({
 		url: url,
@@ -111,7 +106,7 @@
 				<neg>..</neg> and <neu>..</neu> with a regular
 				expression.
 				*/
-				text: (category["text"] || "").replace(/<\/?(?:pos|neu|neg)>/g, ''),
+				text: (category["text"] || "").replace(/<\/?(?:pos|neu|neg|strong)>/g, ''),
 				highlights: highlights,
 				/*
 				Recursively transform sub categories (if
@@ -130,13 +125,12 @@
 			way, our visualization should look like the official
 			TrustYou HTML visualization.
 			*/
-			filters: reviewSummary["filtered_tops_flops_list"].map(function(filteredReviewSummary) {
+			filters: reviewSummary["trip_type_meta_review_list"].map(function(filteredReviewSummary) {
 				var filterId = filteredReviewSummary["filter"]["trip_type"];
 				return {
 					filterId: filterId,
 					filterName: filterNames[filterId],
 					reviewsPercent: filteredReviewSummary["reviews_percent"],
-					hotelType: filteredReviewSummary["hotel_type_list"].map(transformCategory),
 					categories: filteredReviewSummary["category_list"].map(transformCategory),
 					goodToKnow: filteredReviewSummary["good_to_know_list"].map(transformCategory)
 				};
@@ -150,15 +144,6 @@
 		var filterBarTemplate = $("#tmpl-filter-bar").html();
 		var filterBarRendered = Mustache.render(filterBarTemplate, filtersData);
 		$("#filter-bar").html(filterBarRendered);
-
-		/*
-		Render the "important for X travelers" section, which appears
-		under the filter bar when there is data to show in the
-		hotel_type_list of the selected filtered summary.
-		*/
-		var importantForTemplate = $("#tmpl-important-for").html();
-		var importantForRendered = Mustache.render(importantForTemplate, filtersData);
-		$("#important-for").html(importantForRendered);
 
 		/*
 		For the remaining elements, put the overall review summary in

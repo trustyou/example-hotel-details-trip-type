@@ -88,44 +88,6 @@
       </div>
     </script>
 
-    <!-- HTML template for categories especially important for selected filter, displayed right below filter bar -->
-    <script id="tmpl-important-for" type="x-tmpl-mustache">
-      {{#filters}}
-      <div class="summary-section tops-flops tops-flops-{{filterId}}" id="highlights-{{filterId}}">
-	{{#hotelType}}
-	<p class="type-of-hotel">
-	  {{text}}
-	  {{#highlights}}
-	  <span class="snippet">&ldquo;{{text}}&rdquo;</span>
-	  {{/highlights}}
-	</p>
-	{{#subCategories}}
-	<div class="category">
-	  <div class="category-label">
-	    {{categoryName}}
-	  </div>
-	  <div class="category-results">
-	    <div class="category-snippets">
-	      <div class="result-chart pos">
-		<div class="result-value" style="width: {{score}}%;"></div>
-	      </div>
-	      <div class="result-description">
-		<p>
-		  {{#highlights}}
-		  <span>&ldquo;{{text}}&rdquo;</span>
-		  {{/highlights}}
-		</p>
-		<a class="toggle-content"><i class="ty-icon ty-icon-plus"></i></a>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	{{/subCategories}}
-	{{/hotelType}}
-      </div>
-      {{/filters}}
-    </script>
-
     <!-- HTML template for review summary -->
     <script id="tmpl-review-summaries" type="x-tmpl-mustache">
       {{#filters}}
@@ -204,8 +166,8 @@
     </div>
 
     <div class="container">
-      <div class="summary-content" id="review-summaries"></div>
       <div id="good-to-know"></div>
+      <div class="summary-content" id="review-summaries"></div>
       
       <!-- Verified reviews -->      
       <a href="http://trustyou.com" class="verified-reviews">

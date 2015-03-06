@@ -350,7 +350,7 @@ header .trustscore {
 }
 
 .summary-section {
-	margin-bottom: 30px;
+	margin: 30px 0 0 0;
 }
 
 .summary-section .toggle-details {
