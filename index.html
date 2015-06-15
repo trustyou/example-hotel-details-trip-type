@@ -113,17 +113,17 @@
 		<a class="toggle-content"><i class="ty-icon ty-icon-plus"></i></a>
 	      </div>
 	    </div>
-	    {{#subCategories}}
+	    {{#summarySentences}}
 	    <div class="category-subcategory" >
-	      <div class="result-chart {{sentiment}}">
-		<div class="result-value" style="width: {{score}}%;"></div>
-	      </div>
 	      <div class="result-description">
-		<p>{{text}}</p>
+		<p>
+		  <i class="ty-icon ty-icon-{{sentiment}}"></i>
+		  {{text}}
+		</p>
 		<a class="toggle-content"><i class="ty-icon ty-icon-plus"></i></a>
 	      </div>
 	    </div>
-	    {{/subCategories}}
+	    {{/summarySentences}}
 	  </div>
 	  {{/categories}}
 	</div>

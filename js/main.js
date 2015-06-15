@@ -13,14 +13,14 @@
 	developed against. This guarantees that no schema-breaking changes will
 	affect your code.
 	*/
-	var url = "http://api.trustyou.com/hotels/" + hotelData.tyId + "/tops_flops.json?" + $.param({
+	var url = "http://api.trustyou.com/hotels/" + hotelData.tyId + "/meta_review.json?" + $.param({
 		lang: "en",
 		/*
 		This is a demo API key, do not reuse it! Contact TrustYou to
 		receive your own.
 		*/
 		key: "a06294d3-4d58-45c8-97a1-5c905922e03a",
-		v: "5.23"
+		v: "5.25"
 	});
 	var reviewSummaryRequest = $.ajax({
 		url: url,
@@ -108,11 +108,12 @@
 				*/
 				text: (category["text"] || "").replace(/<\/?(?:pos|neu|neg|strong)>/g, ''),
 				highlights: highlights,
-				/*
-				Recursively transform sub categories (if
-				present), since they have the same format.
-				*/
-				subCategories: category.hasOwnProperty("sub_category_list") ? category["sub_category_list"].map(transformCategory) : []
+				summarySentences: (category["summary_sentence_list"] || []).map(function(summarySentence) {
+					return {
+						sentiment: (summarySentence["sentiment"] == "neg" ? "remove" : "ok"),
+						text: summarySentence["text"]
+					};
+				})
 			};
 		}
 

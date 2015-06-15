@@ -558,11 +558,12 @@ header .trustscore {
 /* Subcategories */
 
 .summary-section.tops-flops .category .category-subcategory {
+	margin: 5px 0 0 0;
 	opacity: 1;
 }
 
 .summary-section.tops-flops .category .category-subcategory:last-child {
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 .summary-section.tops-flops .category .category-subcategory.hidden {
