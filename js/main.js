@@ -46,18 +46,13 @@
 		};
 
 		// transform hotel types to the format expected by the template
-		templateData.hotelTypes = reviewSummary["hotel_type_list"].map(function(hotelType) {
+		templateData.badges = reviewSummary["badge_list"]
+		.slice(1, 3)
+		.map(function(badge) {
 			return {
-				categoryId: hotelType["category_id"],
-				/*
-				Texts in the "text" property contain markers
-				in the form of <pos>..</pos>, <neg>..</neg> and
-				<neu>..</neu>, which enclose passages in the
-				text that contain sentiment. Either remove
-				these before displaying the text, or replace
-				them with meaningful markup, as is done here.
-				*/
-				text: hotelType["text"].replace("<pos>", "<strong>").replace("</pos>", "</strong>")
+				categoryId: badge["badge_data"]["category_id"],
+				text: badge["text"],
+				subtext: badge["subtext"]
 			};
 		});
 
