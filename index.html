@@ -92,27 +92,17 @@
     <script id="tmpl-review-summaries" type="x-tmpl-mustache">
       {{#filters}}
       <div class="summary-section tops-flops" id="tops-flops-{{filterId}}">
-	<a class="toggle-details" id="toggle-details-{{filterId}}" data-label-show="Show details" data-label-hide="Hide details"><i class="ty-icon ty-icon-preview-off"></i>Hide details</a>
 	<h2>Review highlights</h2>
 	<div class="category">
 	  {{#categories}}
 	  <div class="category-label">
 	    {{categoryName}}
+	    <br/><br/>
+	    <div class="result-chart {{sentiment}}">
+	      <div class="result-value" style="width: {{score}}%;"></div>
+	    </div>
 	  </div>
 	  <div class="category-results">
-	    <div class="category-snippets">
-	      <div class="result-chart {{sentiment}}">
-		<div class="result-value" style="width: {{score}}%;"></div>
-	      </div>
-	      <div class="result-description">
-		<p>
-		  {{#highlights}}
-		  <span>&ldquo;{{text}}&rdquo;</span>
-		  {{/highlights}}
-		</p>
-		<a class="toggle-content"><i class="ty-icon ty-icon-plus"></i></a>
-	      </div>
-	    </div>
 	    {{#summarySentences}}
 	    <div class="category-subcategory" >
 	      <div class="result-description">
@@ -120,7 +110,6 @@
 		  <i class="ty-icon ty-icon-{{sentiment}}"></i>
 		  {{text}}
 		</p>
-		<a class="toggle-content"><i class="ty-icon ty-icon-plus"></i></a>
 	      </div>
 	    </div>
 	    {{/summarySentences}}

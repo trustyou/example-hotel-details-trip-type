@@ -82,27 +82,12 @@
 		* applied to all these properties.
 		*/
 		function transformCategory (category) {
-			/*
-			Show up to three returned highlights. If no highlights
-			are present, the "short_text" is shown instead.
-			*/
-			var highlights = category["highlight_list"];
-			if (category["short_text"]) {
-				highlights = highlights.concat({text: category["short_text"]});
-			}
-			highlights = highlights.slice(0, 3);
 			return {
 				categoryId: category["category_id"],
 				categoryName: category["category_name"],
 				score: category["score"],
 				sentiment: category["sentiment"],
-				/*
-				Remove the markers in the form of <pos>..</pos>,
-				<neg>..</neg> and <neu>..</neu> with a regular
-				expression.
-				*/
-				text: (category["text"] || "").replace(/<\/?(?:pos|neu|neg|strong)>/g, ''),
-				highlights: highlights,
+				text: category["text"],
 				summarySentences: (category["summary_sentence_list"] || []).map(function(summarySentence) {
 					return {
 						sentiment: (summarySentence["sentiment"] == "neg" ? "remove" : "ok"),
@@ -255,58 +240,6 @@ function addHandlers() {
 	window.onload = function() {
 		oveflowTextContent();
 	};
-
-	// handle the showing/hiding of details: extra snippets & subcategories
-
-	$('[id*="toggle-details"]').on('click', function(){
-
-		$toggleBtn = $(this);
-		$toggleBtn.toggleClass('show');
-
-		// only show a single snippet
-
-		$(this).parents('.summary-section').find('.category-snippets p:last-child:not(:only-child)').fadeToggle();
-
-		// show subcategories by sliding and fading the same time
-
-		$(this).parents('.summary-section').find(".category-subcategory").each(function(index) {
-			$(this).delay(20*index).animate({
-				height: "toggle",
-				opacity: "toggle"
-			}, 100);
-		});
-
-		// once animation is complete, update text for the toggle button
-
-		if($toggleBtn.hasClass('show'))
-			$toggleBtn.html('<i class="ty-icon ty-icon-preview"></i> ' + $toggleBtn.attr('data-label-show'));
-		else
-			$toggleBtn.html('<i class="ty-icon ty-icon-preview-off"></i> ' + $toggleBtn.attr('data-label-hide'));
-
-	});		
-
-	// handle toggling of truncated texts
-
-	$('.result-description').each(function(){
-
-		$(this).on('click', function(){
-
-			var toggleContent = $(this).find('.toggle-content');
-
-			if($(this).hasClass('text-truncate-on') || $(this).hasClass('text-truncate-off')){
-
-				$(this).toggleClass('text-truncate-on text-truncate-off');
-
-				if($(this).hasClass('text-truncate-on')) {
-					toggleContent.html('<i class="ty-icon ty-icon-plus"></i>');
-				}
-				else {
-					toggleContent.html('<i class="ty-icon ty-icon-minus"></i>');
-				}
-			}
-
-		});
-	});
 
 	// show tops & flops without flickering of height
 	//
