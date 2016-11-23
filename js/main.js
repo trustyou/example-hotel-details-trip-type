@@ -13,14 +13,14 @@
 	developed against. This guarantees that no schema-breaking changes will
 	affect your code.
 	*/
-	var url = "http://api.trustyou.com/hotels/" + hotelData.tyId + "/meta_review.json?" + $.param({
+	var url = "https://api.trustyou.com/hotels/" + hotelData.tyId + "/meta_review.json?" + $.param({
 		lang: "en",
 		/*
 		This is a demo API key, do not reuse it! Contact TrustYou to
 		receive your own.
 		*/
 		key: "a06294d3-4d58-45c8-97a1-5c905922e03a",
-		v: "5.25"
+		v: "5.39"
 	});
 	var reviewSummaryRequest = $.ajax({
 		url: url,
