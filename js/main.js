@@ -13,13 +13,16 @@
 	developed against. This guarantees that no schema-breaking changes will
 	affect your code.
 	*/
+
+	let apikey = "22222222-2222-2222-2222-222222222222"
+
 	var url = "https://api.trustyou.com/hotels/" + hotelData.tyId + "/meta_review.json?" + $.param({
 		lang: "en",
 		/*
 		This is a demo API key, do not reuse it! Contact TrustYou to
 		receive your own.
 		*/
-		key: "a06294d3-4d58-45c8-97a1-5c905922e03a",
+		key: apikey,
 		v: "5.39"
 	});
 	var reviewSummaryRequest = $.ajax({
