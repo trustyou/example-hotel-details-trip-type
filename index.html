@@ -30,18 +30,15 @@
 	  <i class="ty-icon ty-icon-marker"></i>
 	  {{address}}
 	</h2>
-	    
-	<div class="trustscore size-m pos">
-	  <div class="value">{{trustScore}}</div>
-	  <div class="badges">
-	    <i class="ty-icon ty-icon-badge-full neg"></i>
-	    <i class="ty-icon ty-icon-badge-full neu"></i>
-	    <i class="ty-icon ty-icon-badge-full pos"></i>
-	  </div>
-	  <div class="score">Excellent </div>
-	  <div class="counter">{{reviewsCount}} Reviews</div>
+
+	<div class="trustscore">
+        <iframe src="https://api.trustyou.com/hotels/674fa44c-1fbd-4275-aa72-a20f262372cd/trust_score.html?key={{apikey}}&size=m"
+          scrolling="no"
+          height="56"
+          width="205"
+          style="border:none"></iframe>
 	</div>
-	    
+
 	<h3>
 	  {{summary}}
 	</h3>

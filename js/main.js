@@ -45,7 +45,8 @@
 			reviewsCount: reviewSummary["reviews_count"],
 			trustScore: reviewSummary["summary"].score,
 			popularity: reviewSummary["summary"].popularity,
-			summary: reviewSummary["summary"].text
+			summary: reviewSummary["summary"].text,
+			apikey: apikey
 		};
 
 		// transform hotel types to the format expected by the template
